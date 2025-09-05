@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnovais <jnovais@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 19:50:14 by jnovais           #+#    #+#             */
-/*   Updated: 2025/08/22 20:13:02 by jnovais          ###   ########.fr       */
+/*   Created: 2025/09/01 23:44:26 by marvin            #+#    #+#             */
+/*   Updated: 2025/09/01 23:44:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,16 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int	main(void)
-{
-	int		fd;
-	char line;
+int main() {
+	int fd;
+	char buf[256];
+	int chars_read;
 
 	fd = open("arquivo.txt", O_RDONLY);
-	if (fd == -1)
+
+	while ((chars_read = read(fd, buf, 5)))
 	{
-		perror("open");
-		return (1);
+		buf[chars_read] = '\0';
+		printf("buf-> %s\n", buf);
 	}
-
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-
-	close(fd);
-
-	return (0);
-
 }
